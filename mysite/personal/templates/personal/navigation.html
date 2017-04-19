@@ -1,0 +1,5 @@
+{% for game in navigation %}
+  {% if game.genre != 'Action' and game.genre != 'Adventure' and game.genre != 'Racing' and game.genre != 'RPG' and game.genre != 'Simulation' and game.genre != 'Sports' and game.genre != 'Stretagy' %}
+    <li><a href="/genre/{{game.genre}}">{{game.genre}}</a></li>
+  {% endif %}
+{% endfor %}

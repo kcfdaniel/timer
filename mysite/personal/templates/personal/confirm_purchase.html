@@ -1,0 +1,48 @@
+{% extends "personal/header.html" %}
+
+{% block content %}
+<!-- /.home-main -->
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-sm-2 blog-main">
+          <div class="blog-post">
+            <h4 class="blog-post-title">Game of the Day</h4>
+            {% for game in content.0 %}
+				<h5><a href="/game/{{game.id}}"> {{game.title}}</a></h5>
+			{% endfor %}
+          </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-1 blog-sidebar">
+        <div style="border-left:thin #000000 solid; height:786px;" />
+          <div class="sidebar-module sidebar-module-inset">
+            <div class="major-content">
+              <h4>You are about to do the following purchase: </h4> 
+              <h4>{{content.1}}</h4>
+              <h4>Number of Reward: {{content.2}}</h4>
+              <h4>Total amount: {{content.3}}</h4>
+
+                <form method='post' action='/game/{{content.4}}/confirmed'>
+                  {% csrf_token %}
+                  <button class="btn btn-default btn-xs" type="submit" name="confirm">Confirm</button>
+                  <button class="btn btn-default btn-xs" type="submit" name="cancel">Cancel</button>
+                </form>
+            </div>
+          </div>
+
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+    <!-- Custom CSS by B -->
+    <style>
+    .major-content {
+      padding-left: 10px;
+    }
+    </style>
+
+{% include "personal/includes/htmlsnippet.html" %}
+{% endblock %}

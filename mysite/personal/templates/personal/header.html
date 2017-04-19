@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Timer</title>
+  <meta charset="utf-8" />
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'personal/css/bootstrap.min.css' %}" type = "text/css"/>
+  <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+  
+  <style type="text/css">
+    html,
+    body {
+      height:100%
+    }
+  </style>
+</head>
+
+<body class="body" style="background-color:#6CADFF">
+  <div class="container-fluid" style="min-height:95%; ">
+    <div class="row">
+        <div class="col-sm-12">
+          <br>
+          <br>
+          <center>
+            <p style="font-family: OpenSans-Bold;font-size: 24px;color: #FFFFFF;letter-spacing: 7.69px;"><img src="{% static 'personal/img/timer.png' %}"  width="47" height="55" align="middle">Task Timer</p>
+          </center>
+        </div>
+    </div>
+
+    <div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+       <!-- Great, til you resize. -->
+      <!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
+      <div>
+        <center>
+          
+            <form method='post' action='/hello'>
+              {% csrf_token %}
+              <input type="text" name='r' size="40" placeholder="Enter task name">
+            <input type="image" name="submit"  src="{% static 'personal/img/yellow.png' %}"  width="66" height="66" align="middle" type="submit">
+            </form>
+          
+        <center>
+      </div> <!--well bs-sidebar affix-->
+      <br><br>
+      </div>
+      </div>
+    </div> 
+  </div>
+  
+</body>
+
+</html>

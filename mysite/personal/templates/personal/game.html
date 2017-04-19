@@ -1,0 +1,107 @@
+{% extends "personal/header.html" %}
+
+{% block content %}
+<!-- head -->
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<!-- /.home-main -->
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-sm-2 blog-main">
+
+          <div class="blog-post">
+            <h4 class="blog-post-title">{{game.title}}</h4>
+            <p class="blog-post-meta">Genre: {{game.genre}}</p>
+          </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-1 blog-sidebar">
+        <div style="border-left:thin #000000 solid; height:786px;" />
+          <div class="sidebar-module sidebar-module-inset">
+            <div class="major-content">
+              <h5>Description:</h5><br>
+
+              Price: ${{game.price}}
+              <!-- tags -->
+              <p class="tags">Tags:
+              {% for tag in game.tag.all %}
+                <span class="label label-default">{{tag.name}}</span>
+              {% endfor %}
+                <button type="submit" class="btn btn btn-xs" id="tagging">add tag</button>
+              </p>
+              <!-- /.tags -->
+
+              <!-- reviews -->
+              <br><h5>Reviews:</h5>
+              <div class="current-reviews">
+                {% for review in game.review_set.all %}
+                  <div class="review-box" name="review" id="review{{ forloop.counter }}">
+                    {{review.writer}}:
+                    {{review.text}}
+                  </div>
+                {% endfor %}
+              </div>
+
+              <div class="add-review">
+                <div class="review-box">
+                  <form method='post' action='/game/{{game.id}}/add_review'>
+                    {% csrf_token %}
+                    <input type="text" name='r' class="form-control" placeholder="type review here...">
+                    <button class="btn btn-default btn-xs" type="submit">Post</button>
+                  </form>
+                </div>
+              </div>
+
+              <div class="purchase-box">
+                <form method='post' action='/game/{{game.id}}/select_reward'>
+                  {% csrf_token %}
+                  <button class="btn btn-default btn-xs" type="submit">Purchase</button>
+                </form>
+              </div>
+              {% if messages %}
+              <ul class="messages">
+                  {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            <!-- reviews -->
+          </div>
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+    <style>
+    .major-content {
+      margin-left: 10px;
+    }
+
+    .review-box {
+      background-color: white;
+      border: 1px;
+      border-radius: 5px;
+      margin: 15px 30px 15px 30px;
+      padding: 10px;
+      width: 500px;
+    }
+    </style>
+
+    <script>
+    $("#tagging").click(function(){
+      $("#tagging").remove();
+      $(".tags").last().after(`<form method='post' action='/game/{{game.id}}/add_tag'>
+        {% csrf_token %}
+        <input type="text" name='t' placeholder="new tag..."/>
+        <button type="submit">Add</button>
+      </form>`);
+    });
+    </script>
+
+{% include "personal/includes/htmlsnippet.html" %}
+{% endblock %}

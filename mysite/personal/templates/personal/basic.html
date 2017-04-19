@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Timer</title>
+  <meta charset="utf-8" />
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'personal/css/bootstrap.min.css' %}" type = "text/css"/>
+  <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+  
+  <style type="text/css">
+    html,
+    body {
+      height:100%
+    }
+  </style>
+</head>
+
+<body class="body" style="background-color:#6CADFF">
+  <div class="container-fluid" style="min-height:95%; ">
+    <div class="row">
+        <div class="col-sm-12">
+          <br>
+          <br>
+          <center>
+            <p style="font-family: OpenSans-Bold;font-size: 24px;color: #FFFFFF;letter-spacing: 7.69px;"><img src="{% static 'personal/img/timer.png' %}"  width="47" height="55" align="middle">Task Timer</p>
+          </center>
+        </div>
+    </div>
+
+    <div style="background-color:#FFFFFF">
+      <div>
+
+        <center>
+          
+            <form method='post' action='/hello'>
+              {% csrf_token %}
+              <input type="text" name='r' size="40" placeholder="Enter task name">
+            <input type="image" name="submit"  src="{% static 'personal/img/yellow.png' %}"  width="66" height="66" align="middle" type="submit">
+            </form>
+          
+        </center>
+      </div> <!--well bs-sidebar affix-->
+      <br><br><br><br><br><br>
+        <div class="container" style="margin-top:150px;">
+        <center>
+        <div class="col-sm-7">
+          <h3>{{content.0}}</h3>
+        </div>
+        <div class="col-sm-2">
+          <div id="t" class="badge">00:00</div>
+        </div>
+        <div class="col-sm-2">
+          <button id="btn" class="btn btn-success" style="background: url('static/personal/img/grey.png');height:56px;width:56px;" >Pause</button>
+          <!--<button id="get-seconds-btn">Get seconds</button>--> 
+          <button id="btn2" class="btn btn-success" style="background: url('static/personal/img/green.png');height:56px;width:56px;" >Stop</button>
+          </div>
+          <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+          <script src="{% static 'personal/js/timer.jquery.min.js' %}"></script> 
+          <script>
+          s = parseInt($("input[name='s']").val());
+          if(isNaN(s))
+          {
+              s = 0;
+              $("input[name='s']").val(0);
+          }
+          //you can specify action via object or a string
+          $("#t").timer({
+              action: 'start', 
+              seconds:s
+          });
+          $(this).html("Pause");
+          $("input[name='s']").attr("disabled", "disabled");
+          $("#t").addClass("badge-important");
+                 (function(){
+                      
+                      
+                      //timer actions
+                      $("#btn").click(function(){
+                          switch($(this).html().toLowerCase())
+                          {
+                              case "start":
+                                  s = parseInt($("input[name='s']").val());
+                                  if(isNaN(s))
+                                  {
+                                      s = 0;
+                                      $("input[name='s']").val(0);
+                                  }
+                                  //you can specify action via object or a string
+                                  $("#t").timer({
+                                      action: 'start', 
+                                      seconds:s
+                                  });
+                                  $(this).html("Pause");
+                                  $("input[name='s']").attr("disabled", "disabled");
+                                  $("#t").addClass("badge-important");
+                                  break;
+                              
+                              case "resume":
+                                  //you can specify action via string
+                                  $("#t").timer('resume');
+                                  $(this).html("Pause")
+                                  $("#t").addClass("badge-important");
+                                  break;
+                              
+                              case "pause":
+                                  //you can specify action via object
+                                  $("#t").timer({action: 'pause'});
+                                  $(this).html("Resume")
+                                  $("#t").removeClass("badge-important");
+                                  break;
+
+                              case "stop":
+                                  //you can specify action via object
+                                  $("#t").timer({action: 'pause'});
+                                  $(this).html("Stop")
+                                  $("#t").removeClass("badge-important");
+                                  break;
+                          }
+                      });
+
+                      $("#btn2").click(function(){
+                          switch($(this).html().toLowerCase())
+                          {
+                              case "start":
+                                  s = parseInt($("input[name='s']").val());
+                                  if(isNaN(s))
+                                  {
+                                      s = 0;
+                                      $("input[name='s']").val(0);
+                                  }
+                                  //you can specify action via object or a string
+                                  $("#t").timer({
+                                      action: 'start', 
+                                      seconds:s
+                                  });
+                                  $(this).html("Pause");
+                                  $("input[name='s']").attr("disabled", "disabled");
+                                  $("#t").addClass("badge-important");
+                                  break;
+                              
+                              case "resume":
+                                  //you can specify action via string
+                                  $("#t").timer('resume');
+                                  $(this).html("Pause")
+                                  $("#t").addClass("badge-important");
+                                  break;
+                              
+                              case "pause":
+                                  //you can specify action via object
+                                  $("#t").timer({action: 'pause'});
+                                  $(this).html("Resume")
+                                  $("#t").removeClass("badge-important");
+                                  break;
+
+                              case "stop":
+                                  //you can specify action via object
+                                  $("#t").timer({action: 'pause'});
+                                  $(this).html("Stop")
+                                  $("#t").removeClass("badge-important");
+                                  break;
+                          }
+                      });
+                      
+                      $("#get-seconds-btn").click(function(){
+                          console.log($("#t").timer("get_seconds"));
+                      });
+                  })();
+              </script>
+              </center>
+          </div>
+      </div>
+      </div>
+    </div> 
+  </div>
+  
+</body>
+
+</html>
